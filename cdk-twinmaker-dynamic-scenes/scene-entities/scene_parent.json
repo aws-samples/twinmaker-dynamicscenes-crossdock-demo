@@ -1,0 +1,16 @@
+{
+    "entityId": "SCENE_test-dynamic_c38a45be-f556-4ca0-b977-5042dd69031b",
+    "entityName": "SCENE_test-dynamic_c38a45be-f556-4ca0-b977-5042dd69031b",
+    "arn": "arn:aws:iottwinmaker:eu-west-1:905418062559:workspace/test/entity/SCENE_test-dynamic_c38a45be-f556-4ca0-b977-5042dd69031b",
+    "status": {
+        "state": "ACTIVE",
+        "error": {}
+    },
+    "workspaceId": "test",
+    "description": "",
+    "components": {},
+    "parentEntityId": "SCENES_EntityId",
+    "hasChildEntities": true,
+    "creationDateTime": "2024-07-31T08:36:58.947000+01:00",
+    "updateDateTime": "2024-07-31T08:36:58.947000+01:00"
+}

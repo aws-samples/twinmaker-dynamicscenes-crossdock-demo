@@ -1,0 +1,397 @@
+{
+    "DataOverlay": {
+        "componentTypeId": "com.amazon.iottwinmaker.3d.component.dataoverlay",
+        "properties": {
+            "dataRows": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "MAP",
+                            "nestedType": {
+                                "type": "STRING"
+                            }
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": true,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                },
+                "value": {
+                    "listValue": [
+                        {
+                            "mapValue": {
+                                "content": {
+                                    "stringValue": "**First%20Item**:%20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%20$%7Bbarcode%7D%20123%0A**Second%20Item**:%20&nbsp;value%202%0A**Third%20Item**:%20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value%203"
+                                },
+                                "rowType": {
+                                    "stringValue": "Markdown"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "properties": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "rowBindings": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "MAP",
+                            "nestedType": {
+                                "type": "STRING"
+                            }
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "subType": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING",
+                        "allowedValues": [
+                            {
+                                "stringValue": "TextAnnotation"
+                            },
+                            {
+                                "stringValue": "OverlayPanel"
+                            }
+                        ]
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": true,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                },
+                "value": {
+                    "stringValue": "OverlayPanel"
+                }
+            }
+        }
+    },
+    "Node": {
+        "componentName": "Node",
+        "componentTypeId": "com.amazon.iottwinmaker.3d.node",
+        "status": {
+            "state": "ACTIVE",
+            "error": {}
+        },
+        "properties": {
+            "components": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "RELATIONSHIP"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "inLayerOf": {
+                "definition": {
+                    "dataType": {
+                        "type": "RELATIONSHIP"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "isVisualOf": {
+                "definition": {
+                    "dataType": {
+                        "type": "RELATIONSHIP"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                },
+                "value": {
+                    "relationshipValue": {
+                        "targetEntityId": "a2fe11dd-5cf5-493e-af8d-1487c3fbfb55"
+                    }
+                }
+            },
+            "name": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": true,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                },
+                "value": {
+                    "stringValue": "pallet_Z_tag"
+                }
+            },
+            "properties": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "tranform_reference": {
+                "definition": {
+                    "dataType": {
+                        "type": "RELATIONSHIP"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "transformConstraint_snapToFloor": {
+                "definition": {
+                    "dataType": {
+                        "type": "BOOLEAN"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "transform_position": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "DOUBLE"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                },
+                "value": {
+                    "listValue": [
+                        {
+                            "doubleValue": 0.0
+                        },
+                        {
+                            "doubleValue": 7.0
+                        },
+                        {
+                            "doubleValue": 0.0
+                        }
+                    ]
+                }
+            },
+            "transform_rotation": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "DOUBLE"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                },
+                "value": {
+                    "listValue": [
+                        {
+                            "doubleValue": 0.0
+                        },
+                        {
+                            "doubleValue": 0.0
+                        },
+                        {
+                            "doubleValue": 0.0
+                        }
+                    ]
+                }
+            },
+            "transform_scale": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "DOUBLE"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                },
+                "value": {
+                    "listValue": [
+                        {
+                            "doubleValue": 1.0
+                        },
+                        {
+                            "doubleValue": 1.0
+                        },
+                        {
+                            "doubleValue": 1.0
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "Tag": {
+        "componentName": "Tag",
+        "componentTypeId": "com.amazon.iottwinmaker.3d.component.tag",
+        "status": {
+            "state": "ACTIVE",
+            "error": {}
+        },
+        "properties": {
+            "chosenColor": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "customIcon_iconName": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "customIcon_prefix": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "icon": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                },
+                "value": {
+                    "stringValue": "Info"
+                }
+            },
+            "navLink_destination": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING"
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "navLink_params": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "offset": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "DOUBLE"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "properties": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            },
+            "styleBinding": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": false,
+                    "isRequiredInEntity": false,
+                    "isExternalId": false,
+                    "isStoredExternally": false
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,354 @@
+{
+    "ModelRef": {
+        "componentName": "ModelRef",
+        "componentTypeId": "com.amazon.iottwinmaker.3d.component.modelref",
+        "status": {
+            "state": "ACTIVE",
+            "error": {}
+        },
+        "properties": {
+            "castShadow": {
+                "definition": {
+                    "dataType": {
+                        "type": "BOOLEAN"
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "colorBinding": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "localScale": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "DOUBLE"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "modelType": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING",
+                        "allowedValues": [
+                            {
+                                "stringValue": "GLB"
+                            },
+                            {
+                                "stringValue": "GLTF"
+                            },
+                            {
+                                "stringValue": "Tiles3D"
+                            },
+                            {
+                                "stringValue": "Environment"
+                            }
+                        ]
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": true,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                },
+                "value": {
+                    "stringValue": "GLB"
+                }
+            },
+            "opacityBinding": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "properties": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "receiveShadow": {
+                "definition": {
+                    "dataType": {
+                        "type": "BOOLEAN"
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "unitOfMeasure": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING",
+                        "allowedValues": [
+                            {
+                                "stringValue": "millimeters"
+                            },
+                            {
+                                "stringValue": "centimeters"
+                            },
+                            {
+                                "stringValue": "decimeters"
+                            },
+                            {
+                                "stringValue": "meters"
+                            },
+                            {
+                                "stringValue": "kilometers"
+                            },
+                            {
+                                "stringValue": "inches"
+                            },
+                            {
+                                "stringValue": "feet"
+                            },
+                            {
+                                "stringValue": "yards"
+                            },
+                            {
+                                "stringValue": "miles"
+                            }
+                        ]
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "uri": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING"
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": true,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                },
+                "value": {
+                    "stringValue": glb_model_file
+                }
+            }
+        }
+    },
+    "Node": {
+        "componentName": "Node",
+        "componentTypeId": "com.amazon.iottwinmaker.3d.node",
+        "status": {
+            "state": "ACTIVE",
+            "error": {}
+        },
+        "properties": {
+            "components": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "RELATIONSHIP"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "inLayerOf": {
+                "definition": {
+                    "dataType": {
+                        "type": "RELATIONSHIP"
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "isVisualOf": {
+                "definition": {
+                    "dataType": {
+                        "type": "RELATIONSHIP"
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                },
+                "value": {
+                    "relationshipValue": {
+                        "targetEntityId": source_entity_id
+                    }
+                }
+            },
+            "name": {
+                "definition": {
+                    "dataType": {
+                        "type": "STRING"
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": true,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                },
+                "value": {
+                    "stringValue": dynamic_entity_name
+                }
+            },
+            "properties": {
+                "definition": {
+                    "dataType": {
+                        "type": "MAP",
+                        "nestedType": {
+                            "type": "STRING"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "tranform_reference": {
+                "definition": {
+                    "dataType": {
+                        "type": "RELATIONSHIP"
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "transformConstraint_snapToFloor": {
+                "definition": {
+                    "dataType": {
+                        "type": "BOOLEAN"
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                }
+            },
+            "transform_position": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "DOUBLE"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                },
+                "value": {
+                    "listValue": [
+                        {
+                            "doubleValue": -31.55320735618318
+                        },
+                        {
+                            "doubleValue": 1.9980000257492196
+                        },
+                        {
+                            "doubleValue": -58.50229921669552
+                        }
+                    ]
+                }
+            },
+            "transform_rotation": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "DOUBLE"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                },
+                "value": {
+                    "listValue": [
+                        {
+                            "doubleValue": 0.0
+                        },
+                        {
+                            "doubleValue": 0.0
+                        },
+                        {
+                            "doubleValue": 0.0
+                        }
+                    ]
+                }
+            },
+            "transform_scale": {
+                "definition": {
+                    "dataType": {
+                        "type": "LIST",
+                        "nestedType": {
+                            "type": "DOUBLE"
+                        }
+                    },
+                    "isTimeSeries": False,
+                    "isRequiredInEntity": False,
+                    "isExternalId": False,
+                    "isStoredExternally": False
+                },
+                "value": {
+                    "listValue": [
+                        {
+                            "doubleValue": 1.0
+                        },
+                        {
+                            "doubleValue": 1.0
+                        },
+                        {
+                            "doubleValue": 1.0
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

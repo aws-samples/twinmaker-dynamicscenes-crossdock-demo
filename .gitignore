@@ -1,0 +1,6 @@
+node_modules
+.DS_Store
+cdk.out
+__pycache__
+venv
+awsconfig.js
