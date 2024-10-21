@@ -2,6 +2,8 @@
 
 AWS IoT TwinMaker makes it easier for developers to create digital twins of real-world systems such as buildings, factories, industrial equipment, and production lines. AWS IoT TwinMaker provides the tools you need to build digital twins to help you optimize building operations, increase production output, and improve equipment performance. With the ability to use existing data from multiple sources, create virtual representations of any physical environment, and combine existing 3D models with real-world data, you can now harness digital twins to create a holistic view of your operations faster and with less effort. 
 
+![web app](assets/web-app-example.png)
+
 The code in this respository demonstrates the operation and a potential use case for the Dynamic Scenes feature of AWS IoT TwinMaker and includes the following;
 
 - [ ] AWS CDK (Cloud Development Kit) code to build the AWS resources required for the demo environment 
