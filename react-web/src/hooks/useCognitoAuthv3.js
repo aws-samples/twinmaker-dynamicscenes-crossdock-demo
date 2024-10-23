@@ -49,14 +49,9 @@ export const signIn = async (username, password) => {
         "refreshToken",
         AuthenticationResult.RefreshToken || ""
       );
-      //sessionStorage.setItem(
-      //  "expiration",
-      //  new Date(AuthenticationResult.expiration)
-      //);
       return AuthenticationResult;
     }
   } catch (error) {
-    console.error("Error signing in: ", error);
     throw error;
   }
 };
@@ -115,13 +110,11 @@ export const getAWSCreds = async () => {
     creds.expiration = new Date(sessionStorage.getItem("expiration"));
     return creds;
   } catch (error) {
-    console.error("Error getting credentials: ", error);
     throw error;
   }
 };
 
 export const refreshToken = async () => {
-  console.log("Refreshing token... ");
   const params = {
     AuthFlow: "REFRESH_TOKEN_AUTH",
     ClientId: awsConfig.COGNITO_CLIENT_ID,
@@ -144,7 +137,6 @@ export const refreshToken = async () => {
       return true;
     }
   } catch (error) {
-    console.error("Error refreshing token: ", error);
     throw error;
   }
 };

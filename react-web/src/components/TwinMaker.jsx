@@ -13,7 +13,6 @@ const TwinMaker = () => {
   const composerApi = useSceneComposerApi(awsConfig.TWINMAKER_SCENE_ID);
 
   const onSelectionChanged = (selection) => {
-    console.log("OnSelectionChanged: ", selection);
     try {
       if (
         selection.additionalComponentData &&
@@ -25,11 +24,10 @@ const TwinMaker = () => {
           let IQueryData = { entityId: entityId };
           setSelectedEntityId(entityId);
           setQueryData(IQueryData);
-          console.log("IQueryData: ", IQueryData);
         }
       }
-    } catch (e) {
-      console.log("on selection changed error:", e);
+    } catch (error) {
+      throw error;
     }
   }
 

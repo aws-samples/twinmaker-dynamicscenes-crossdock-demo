@@ -1,12 +1,12 @@
 import * as AWS from "aws-sdk";
 import * as awsConfig from "../awsconfig";
 
-import { getAWSCreds, refreshToken } from "../hooks/useCognitoAuthv3";
 import { useEffect, useRef, useState } from "react";
 
 import Navbar from "./Navbar";
 import TwinMaker from "./TwinMaker";
 import { mqtt } from "aws-iot-device-sdk-v2";
+import { refreshToken } from "../hooks/useCognitoAuthv3";
 import { useConnectWebSocket } from "../hooks/useConnectWebSocket";
 import { useNavigate } from "react-router-dom";
 

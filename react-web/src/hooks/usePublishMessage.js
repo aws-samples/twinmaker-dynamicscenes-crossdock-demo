@@ -7,22 +7,14 @@ export function usePublishMessage(mqttPayload) {
         mqttPayload?.current?.connection?.config &&
         mqttPayload?.current?.message
       ) {
-        console.log(
-          "2. Publishing message hook ",
-          mqttPayload.current.message,
-          " to topic ",
-          mqttPayload.current.topic,
-          " on connection ",
-          mqttPayload.current.connection
-        );
         mqttPayload.current.connection.publish(
           mqttPayload.current.topic,
           JSON.stringify(mqttPayload.current.message),
           mqtt.QoS.AtLeastOnce
         );
       }
-    } catch (e) {
-      console.log("Error publishing message: ", e);
+    } catch (error) {
+      throw error;
     }
   }
 

@@ -2,7 +2,6 @@ import "@cloudscape-design/global-styles/index.css";
 import "/node_modules/@iot-app-kit/components/styles.css";
 import "./SceneViewer.scss";
 
-//import useAWSCredentials from "../hooks/useAWSCredentials";
 import * as awsConfig from "../awsconfig";
 
 import {
@@ -25,7 +24,6 @@ function TwinMakerScene({ onSelectionChanged }) {
 
   useEffect(() => {
     getEntityQuery().then((response) => {
-      console.log("entityQuery: ", response);
       setPalletEntities(response);
     });
 
@@ -63,8 +61,6 @@ function TwinMakerScene({ onSelectionChanged }) {
     ],
     [dataSource, componentTypeQueries, entityQueries]
   );
-
-  console.log("queries: ", queries);
 
   function onWidgetClick(widget) {}
 
