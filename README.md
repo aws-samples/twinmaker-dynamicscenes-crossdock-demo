@@ -2,6 +2,10 @@
 
 AWS IoT TwinMaker makes it easier for developers to create digital twins of real-world systems such as buildings, factories, industrial equipment, and production lines. AWS IoT TwinMaker provides the tools you need to build digital twins to help you optimize building operations, increase production output, and improve equipment performance. With the ability to use existing data from multiple sources, create virtual representations of any physical environment, and combine existing 3D models with real-world data, you can now harness digital twins to create a holistic view of your operations faster and with less effort. 
 
+The code in this repository creates all of the necessary resources in your AWS account and a base web application which simulates the operation of a cross-dock warehouse using AWS IoT TwinMaker, AWS IoT SiteWise, AWS IoT Core, AWS Step Functions and AWS Lambda.  
+
+Using this demonstration code, the environment allows the simulation of goods on pallets entering the warehouse at the inbound docks, transition through sorting and then on to the outbound dock.  The web interface showing the digital twin visualisation of the warehouse is shown below;
+
 ![web app](assets/web-app-example.png)
 
 The code in this respository demonstrates the operation and a potential use case for the Dynamic Scenes feature of AWS IoT TwinMaker and includes the following;
