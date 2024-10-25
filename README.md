@@ -2,7 +2,7 @@
 
 AWS IoT TwinMaker makes it easier for developers to create digital twins of real-world systems such as buildings, factories, industrial equipment, and production lines. AWS IoT TwinMaker provides the tools you need to build digital twins to help you optimize building operations, increase production output, and improve equipment performance. With the ability to use existing data from multiple sources, create virtual representations of any physical environment, and combine existing 3D models with real-world data, you can now harness digital twins to create a holistic view of your operations faster and with less effort. 
 
-The code in this repository creates all of the necessary resources in your AWS account and a base web application which simulates the operation of a cross-dock warehouse using AWS IoT TwinMaker, AWS IoT SiteWise, AWS IoT Core, AWS Step Functions and AWS Lambda.  
+The code in this repository creates all of the necessary resources in your AWS account and a simple web application which simulates the operation of a cross-dock warehouse using AWS IoT TwinMaker, AWS IoT SiteWise, AWS IoT Core, AWS Step Functions and AWS Lambda.  
 
 Using this demonstration code, the environment allows the simulation of goods on pallets entering the warehouse at the inbound docks, transition through sorting and then on to the outbound dock.  The web interface showing the digital twin visualisation of the warehouse is shown below;
 
@@ -80,6 +80,39 @@ Finally, you need to run the React web application to view the scene.  In your C
 `npm start`
 
 A web browser should open with a logon screen (if not, navigate to http://localhost:3001 in your browser).  The username and password are those which you set are parameters when running the `build-config.py` Python script
+
+### Creating and Moving Entities
+
+#### Pallets
+
+Good pallets are created and moved within the scene through MQTT messages to an IoT Core topic `pallet_data` - the simplest way to do this is using the **MQTT Test Client** in the AWS IoT Core console.  The message shown below will move an existing pallet entity to the new location, or if the pallet does not exist it will create a new entity in the scene;
+
+```
+{
+  "pallet" : "pallet_abc",
+  "barcode": "ABCD123",
+  "weight": 95,
+  "goods_type": "chilled",
+  "status": "inbound",
+  "dwell_time": 10,
+  "grid_ref": "inbound_slot_1-row_1a"
+}
+```
+
+The `grid_ref` value starts with either `inbound`, `sorting` or `outbound`, followed by a slot number between 1 and 8 (e.g. `_slot_3`, `_slot_8`, etc).  Finally, a `-` character and a row number of between 1 and 5 followed by `a` or `b` (e.g. `-row_3b`, `-row_5a`, etc).
+
+To remove the pallet from the scene, simply change the `status` value to `loaded` to simulate that the pallet has been loaded on to transport in the outbound dock.
+
+#### dock Doors
+
+The dock doors can also be changed in the scene between open and closed.  The message below, send to the `door_state` MQTT topic will open the indound door 3;
+
+```
+{
+	"door_name": "Inbound_Door_3",
+	"door_state": "open"
+}
+```
 
 ## Cleanup
 
