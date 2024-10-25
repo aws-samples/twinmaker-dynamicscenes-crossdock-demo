@@ -85,7 +85,7 @@ A web browser should open with a logon screen (if not, navigate to http://localh
 
 #### Pallets
 
-Good pallets are created and moved within the scene through MQTT messages to an IoT Core topic `pallet_data` - the simplest way to do this is using the **MQTT Test Client** in the AWS IoT Core console.  The message shown below will move an existing pallet entity to the new location, or if the pallet does not exist it will create a new entity in the scene;
+Goods pallets are created and moved within the scene through MQTT messages to an IoT Core topic `pallet_data` - the simplest way to do this is using the **MQTT Test Client** in the AWS IoT Core console.  The message shown below will move an existing pallet entity to the new location, or if the pallet does not exist it will create a new entity in the scene;
 
 ```
 {
