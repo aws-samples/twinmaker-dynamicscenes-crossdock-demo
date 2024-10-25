@@ -105,7 +105,7 @@ To remove the pallet from the scene, simply change the `status` value to `loaded
 
 #### Dock Doors
 
-The dock doors can also be changed in the scene between open and closed.  The message below, send to the `door_state` MQTT topic will open the indound door 3;
+The dock doors can also be changed in the scene between `open` and `closed`.  The message below, send to the `door_state` MQTT topic will open the indound door 3;
 
 ```
 {
