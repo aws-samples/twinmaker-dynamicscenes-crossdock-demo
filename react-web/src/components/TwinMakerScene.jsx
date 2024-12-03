@@ -34,7 +34,7 @@ function TwinMakerScene({ onSelectionChanged }) {
 
   let credentials = JSON.parse(
     sessionStorage.getItem("AWSCredentials")
-  ).Credentials;
+  );
   credentials.expiration = new Date(credentials.expiration);
   const dataSource = initialize(workSpace, {
     awsCredentials: credentials,

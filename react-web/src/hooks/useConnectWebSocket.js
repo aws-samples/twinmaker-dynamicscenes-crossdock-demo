@@ -9,7 +9,7 @@ export function useConnectWebSocket() {
       // Create client ID for MQTT connection
       let credentials = JSON.parse(
         sessionStorage.getItem("AWSCredentials")
-      ).Credentials;
+      );
 
       let random = Math.floor(Math.random() * 1000000);
       let client_id = "dashboard_" + random;
@@ -24,9 +24,9 @@ export function useConnectWebSocket() {
           .with_client_id(client_id)
           .with_credentials(
             awsConfig.REGION,
-            credentials.AccessKeyId,
-            credentials.SecretKey,
-            credentials.SessionToken
+            credentials.accessKeyId,
+            credentials.secretAccessKey,
+            credentials.sessionToken
           )
           .with_endpoint(awsConfig.IOT_ENDPOINT)
           .with_will(lwt)

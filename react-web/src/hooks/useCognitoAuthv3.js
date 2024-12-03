@@ -5,14 +5,10 @@ import {
   GetCredentialsForIdentityCommand,
   GetIdCommand,
 } from "@aws-sdk/client-cognito-identity";
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
 import {
   CognitoIdentityProviderClient,
   InitiateAuthCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
-
-// ES Modules import
 
 export const cognitoClient = new CognitoIdentityProviderClient({
   region: awsConfig.REGION,
@@ -21,122 +17,97 @@ export const cognitoIdClient = new CognitoIdentityClient({
   region: awsConfig.REGION,
 });
 
-export const cogUri =
-  "cognito-idp." +
-  awsConfig.REGION +
-  ".amazonaws.com/" +
-  awsConfig.COGNITO_USERPOOL;
+// Define cogUri
+export const cogUri = (() => {
+  const uri = `cognito-idp.${awsConfig.REGION}.amazonaws.com/${awsConfig.COGNITO_USERPOOL}`;
+  return () => uri;
+})();
+
 
 export const signIn = async (username, password) => {
   const params = {
     AuthFlow: "USER_PASSWORD_AUTH",
     ClientId: awsConfig.COGNITO_CLIENT_ID,
-    AuthParameters: {
-      USERNAME: username,
-      PASSWORD: password,
-    },
+    AuthParameters: { USERNAME: username, PASSWORD: password },
   };
-  try {
-    const command = new InitiateAuthCommand(params);
-    const { AuthenticationResult } = await cognitoClient.send(command);
-    if (AuthenticationResult) {
-      sessionStorage.setItem("idToken", AuthenticationResult.IdToken || "");
-      sessionStorage.setItem(
-        "accessToken",
-        AuthenticationResult.AccessToken || ""
-      );
-      sessionStorage.setItem(
-        "refreshToken",
-        AuthenticationResult.RefreshToken || ""
-      );
-      return AuthenticationResult;
-    }
-  } catch (error) {
-    throw error;
+
+  const { AuthenticationResult } = await cognitoClient.send(new InitiateAuthCommand(params));
+  if (AuthenticationResult) {
+    const { IdToken, AccessToken, RefreshToken } = AuthenticationResult;
+    sessionStorage.setItem("authTokens", JSON.stringify({ IdToken, AccessToken, RefreshToken }));
+    return AuthenticationResult;
   }
 };
 
+let cachedIdentityId = null;
 export const getIdentityId = async () => {
-  try {
-    const params = {
-      IdentityPoolId: awsConfig.COGNITO_ID_POOL_ID,
-      Logins: {
-        [cogUri]: sessionStorage.getItem("idToken"),
-      },
-    };
-    const command = new GetIdCommand(params);
-    const response = await cognitoIdClient.send(command);
-    console.log("Identity ID:", response.IdentityId);
-    sessionStorage.setItem("cognitoIdentityId", response.IdentityId);
-    return response.IdentityId;
-  } catch (error) {
-    console.error("Error getting identity id: ", error);
-    throw error;
-  }
-};
+  if (cachedIdentityId) return cachedIdentityId;
 
-export const setAWSCreds = async () => {
+  const { IdToken } = JSON.parse(sessionStorage.getItem("authTokens") || "{}");
+  if (!IdToken) throw new Error("No ID token found");
+
   const params = {
-    IdentityId: sessionStorage.getItem("cognitoIdentityId"),
-    Logins: {
-      [cogUri]: sessionStorage.getItem("idToken"),
-    },
+    IdentityPoolId: awsConfig.COGNITO_ID_POOL_ID,
+    Logins: { [cogUri()]: IdToken },
   };
-  try {
-    const command = new GetCredentialsForIdentityCommand(params);
-    const response = await cognitoIdClient.send(command);
 
-    // fix case for other AWS services auth
-    response.Credentials.accessKeyId = response.Credentials.AccessKeyId;
-    response.Credentials.secretAccessKey = response.Credentials.SecretKey;
-    response.Credentials.sessionToken = response.Credentials.SessionToken;
-    response.Credentials.expiration = response.Credentials.Expiration;
-
-    sessionStorage.setItem("AWSCredentials", JSON.stringify(response));
-    return response.Credentials;
-  } catch (error) {
-    console.error("Error getting credentials: ", error);
-    throw error;
-  }
+  const { IdentityId } = await cognitoIdClient.send(new GetIdCommand(params));
+  console.log("Identity ID:", IdentityId);
+  sessionStorage.setItem("cognitoIdentityId", IdentityId);
+  cachedIdentityId = IdentityId;
+  return IdentityId;
 };
 
-export const getAWSCreds = async () => {
-  let creds = {};
-  try {
-    creds.accessKeyId = sessionStorage.getItem("accessKeyId");
-    creds.secretAccessKey = sessionStorage.getItem("secretAccessKey");
-    creds.sessionToken = sessionStorage.getItem("sessionToken");
-    creds.expiration = sessionStorage.getItem("expiration");
-    creds.expiration = new Date(sessionStorage.getItem("expiration"));
-    return creds;
-  } catch (error) {
-    throw error;
+let cachedCredentials = null;
+export const setAWSCreds = async () => {
+  if (cachedCredentials && new Date(cachedCredentials.expiration) > new Date()) {
+    return cachedCredentials;
   }
+
+  const { IdToken } = JSON.parse(sessionStorage.getItem("authTokens") || "{}");
+  if (!IdToken) throw new Error("No ID token found");
+
+  const IdentityId = await getIdentityId();
+  const params = {
+    IdentityId,
+    Logins: { [cogUri()]: IdToken },
+  };
+
+  const { Credentials } = await cognitoIdClient.send(new GetCredentialsForIdentityCommand(params));
+  const { AccessKeyId, SecretKey, SessionToken, Expiration } = Credentials;
+  cachedCredentials = {
+    accessKeyId: AccessKeyId,
+    secretAccessKey: SecretKey,
+    sessionToken: SessionToken,
+    expiration: Expiration,
+  };
+  sessionStorage.setItem("AWSCredentials", JSON.stringify(cachedCredentials));
+  return cachedCredentials;
+};
+
+export const getAWSCreds = () => {
+  const creds = JSON.parse(sessionStorage.getItem("AWSCredentials") || "{}");
+  if (creds.expiration) creds.expiration = new Date(creds.expiration);
+  return creds;
 };
 
 export const refreshToken = async () => {
+  const { RefreshToken } = JSON.parse(sessionStorage.getItem("authTokens") || "{}");
+  if (!RefreshToken) throw new Error("No refresh token found");
+
   const params = {
     AuthFlow: "REFRESH_TOKEN_AUTH",
     ClientId: awsConfig.COGNITO_CLIENT_ID,
-    AuthParameters: {
-      REFRESH_TOKEN: sessionStorage.getItem("refreshToken"),
-    },
+    AuthParameters: { REFRESH_TOKEN: RefreshToken },
   };
 
-  try {
-    const command = new InitiateAuthCommand(params);
-    const { AuthenticationResult } = await cognitoClient.send(command);
-    if (AuthenticationResult) {
-      sessionStorage.setItem("idToken", AuthenticationResult.IdToken || "");
-      sessionStorage.setItem(
-        "accessToken",
-        AuthenticationResult.AccessToken || ""
-      );
-      await getIdentityId();
-      await setAWSCreds();
-      return true;
-    }
-  } catch (error) {
-    throw error;
+  const { AuthenticationResult } = await cognitoClient.send(new InitiateAuthCommand(params));
+  if (AuthenticationResult) {
+    const { IdToken, AccessToken } = AuthenticationResult;
+    sessionStorage.setItem("authTokens", JSON.stringify({ IdToken, AccessToken, RefreshToken }));
+    await getIdentityId();
+    await setAWSCreds();
+    return true;
   }
+  return false;
 };

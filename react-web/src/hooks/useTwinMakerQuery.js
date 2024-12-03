@@ -5,7 +5,7 @@ import { IoTTwinMakerClient, ListEntitiesCommand } from "@aws-sdk/client-iottwin
 const getPalletEntities = async () => {
     let credentials = JSON.parse(
         sessionStorage.getItem("AWSCredentials")
-      ).Credentials;
+      );
     credentials.expiration = new Date(credentials.expiration);
     
     const TwinMaker = new IoTTwinMakerClient({ region: awsConfig.REGION, credentials: credentials });

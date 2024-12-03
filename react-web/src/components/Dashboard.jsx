@@ -15,6 +15,7 @@ const Dashboard = () => {
   const region = awsConfig.REGION;
   AWS.config.region = region;
   const connectionRef = useRef(null);
+  const client_id = useRef(null);
   const topics = useRef([]);
 
   // State
@@ -22,48 +23,37 @@ const Dashboard = () => {
   const [connection, setConnection] = useState(null);
   const { connectWebSocket } = useConnectWebSocket();
 
-  let client_id = useRef(null);
-
   useEffect(() => {
     connectWebSocket().then((response) => {
       setConnection(response);
       connectionRef.current = response;
       client_id.current = response.config.client_id;
-      console.log("Dashboard connection:", connectionRef);
       setDashboardConnected(true);
       setInterval(refreshToken, 3300000); // 3300000 for 55 mins
     });
   }, [setDashboardConnected]);
 
-  const reconnectWebSocket = () => {
-    connectWebSocket().then((response) => {
-      connectionRef.current = response;
-      setConnection(response);
-      client_id.current = response.config.client_id;
-      subscribeToTopics();
-      console.log("Reconnected dashboard connection:", connectionRef);
-      setDashboardConnected(true);
-    });
+  const reconnectWebSocket = async () => {
+    connectionRef.current = await connectWebSocket();
+    setConnection(connectionRef.current);
+    client_id.current = connectionRef.current.config.client_id;
+    subscribeToTopics();
+    setDashboardConnected(true);
   }
 
-  const disconnectWebSocket = () => {
-    unSubscribeFromTopics().then(() => {
-      connectionRef.current.disconnect().then((response) => {
-        console.log("Dashboard disconnected from MQTT broker: ", response);
-        setDashboardConnected(false);
-      });
-    });
+  const disconnectWebSocket = async () => {
+    const unsub = await unSubscribeFromTopics();
+    const disconnect = await connectionRef.current.disconnect();
+    setDashboardConnected(false);
   }
 
   function logout() {
-    console.log("Logout");
     navigate("/");
   }
 
   const subscribeToTopics = () => {
     topics.current.forEach((topic) => {
       try {
-        console.log("Subscription Connection:", connectionRef.current);
         let sub = connectionRef.current.subscribe(
           topic,
           mqtt.QoS.AtLeastOnce,
@@ -71,7 +61,6 @@ const Dashboard = () => {
             processMqttMessage(payload, topic);
           }
         );
-        console.log("Subscribed to MQTT topic: ", sub);
       } catch (e) {
         console.log("Error subscribing to topic: ", e);
       }
@@ -81,7 +70,6 @@ const Dashboard = () => {
   const unSubscribeFromTopics = async () => {
     topics.current.forEach((topic) => {
       try {
-        console.log("Un-subscribe Connection:", connectionRef.current);
         connectionRef.current.unsubscribe(topic).then((response) => {
           console.log("Un-subscribed from MQTT topic: ", response);
         });
